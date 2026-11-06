@@ -1,0 +1,56 @@
+<div class="container">
+    @if (id()) {
+        <h1>Modificar préstamo</h1>
+    } @else {
+        <h1>Crear préstamo</h1>
+    }
+
+    <form>
+        <mat-form-field>
+            <mat-label>Identificador</mat-label>
+            <input type="text" matInput placeholder="Identificador" [(ngModel)]="id" name="id" disabled>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Nombre del juego</mat-label>
+            <mat-select disableRipple [(ngModel)]="gameId" name="gameTitle" required>
+                @for (game of games(); track game.id) {
+                    <mat-option [value]="game.id">{{game.title}}</mat-option>
+                }
+            </mat-select>
+            <mat-error>El nombre del juego no puede estar vacío</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Nombre del cliente</mat-label>
+            <mat-select disableRipple [(ngModel)]="clientId" name="clientName" required>
+                @for (cli of clients(); track cli.id) {
+                    <mat-option [value]="cli.id">{{cli.name}}</mat-option>
+                }
+            </mat-select>
+            <mat-error>El nombre del cliente no puede estar vacío</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Fecha de inicio del préstamo</mat-label>
+            <input matInput placeholder="Fecha de inicio del préstamo" [matDatepicker]="picker1" [(ngModel)]="startDate" name="startDate" required>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error>La fecha de inicio del préstamo no puede estar vacía</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Fecha de fin del préstamo</mat-label>
+            <input matInput placeholder="Fecha de fin del préstamo" [matDatepicker]="picker2" [(ngModel)]="endDate" name="endDate" required>
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error>La fecha de fin del préstamo no puede estar vacía</mat-error>
+        </mat-form-field>
+
+    </form>
+
+    <div class="buttons">
+        <button mat-stroked-button (click)="onClose()">Cerrar</button>
+        <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+    </div>
+</div>

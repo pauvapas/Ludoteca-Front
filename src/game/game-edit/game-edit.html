@@ -1,0 +1,51 @@
+<div class="container">
+    @if (id()) {
+        <h1>Modificar juego</h1>
+    } @else {
+        <h1>Crear juego</h1>
+    }
+
+    <form>
+        <mat-form-field>
+            <mat-label>Identificador</mat-label>
+            <input type="text" matInput placeholder="Identificador" [(ngModel)]="id" name="id" disabled>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Título</mat-label>
+            <input type="text" matInput placeholder="Título del juego" [(ngModel)]="title" name="title" required>
+            <mat-error>El título no puede estar vacío</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Edad recomendada</mat-label>
+            <input type="number" matInput placeholder="Edad recomendada" [(ngModel)]="age" name="age" required>
+            <mat-error>La edad no puede estar vacía</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Categoría</mat-label>
+            <mat-select disableRipple [(ngModel)]="categoryId" name="category" required>
+                @for (cat of categories(); track cat.id) {
+                    <mat-option [value]="cat.id">{{cat.name}}</mat-option>
+                }
+            </mat-select>
+            <mat-error>La categoría no puede estar vacía</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Autor</mat-label>
+            <mat-select disableRipple [(ngModel)]="authorId" name="author" required>
+                @for (aut of authors(); track aut.id) {
+                    <mat-option [value]="aut.id">{{aut.name}}</mat-option>
+                }
+            </mat-select>
+            <mat-error>El autor no puede estar vacío</mat-error>
+        </mat-form-field>
+    </form>
+
+    <div class="buttons">
+        <button mat-stroked-button (click)="onClose()">Cerrar</button>
+        <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+    </div>
+</div>
